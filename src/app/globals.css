@@ -22,29 +22,37 @@
   --border: 240 5.9% 90%;
   --input: 240 5.9% 90%;
   --ring: 240 10% 3.9%;
-  --radius: 0.5rem;
+  --radius: 0.75rem;
+
+  /* Glass tokens */
+  --glass-bg: rgba(255, 255, 255, 0.06);
+  --glass-bg-strong: rgba(255, 255, 255, 0.1);
+  --glass-border: rgba(255, 255, 255, 0.08);
+  --glass-border-strong: rgba(255, 255, 255, 0.15);
+  --glass-blur: 20px;
+  --glass-blur-heavy: 40px;
 }
 
 .dark {
-  --background: 240 10% 3.9%;
-  --foreground: 0 0% 98%;
-  --card: 240 10% 3.9%;
-  --card-foreground: 0 0% 98%;
-  --popover: 240 10% 3.9%;
-  --popover-foreground: 0 0% 98%;
+  --background: 220 15% 5%;
+  --foreground: 0 0% 95%;
+  --card: 220 15% 8%;
+  --card-foreground: 0 0% 95%;
+  --popover: 220 15% 8%;
+  --popover-foreground: 0 0% 95%;
   --primary: 0 0% 98%;
-  --primary-foreground: 240 5.9% 10%;
-  --secondary: 240 3.7% 15.9%;
-  --secondary-foreground: 0 0% 98%;
-  --muted: 240 3.7% 15.9%;
-  --muted-foreground: 240 5% 64.9%;
-  --accent: 240 3.7% 15.9%;
-  --accent-foreground: 0 0% 98%;
+  --primary-foreground: 220 15% 6%;
+  --secondary: 220 10% 14%;
+  --secondary-foreground: 0 0% 95%;
+  --muted: 220 10% 14%;
+  --muted-foreground: 220 5% 55%;
+  --accent: 220 10% 14%;
+  --accent-foreground: 0 0% 95%;
   --destructive: 0 62.8% 30.6%;
   --destructive-foreground: 0 0% 98%;
-  --border: 240 3.7% 15.9%;
-  --input: 240 3.7% 15.9%;
-  --ring: 240 4.9% 83.9%;
+  --border: 220 10% 16%;
+  --input: 220 10% 16%;
+  --ring: 220 5% 80%;
 }
 
 @layer base {
@@ -53,5 +61,117 @@
   }
   body {
     @apply bg-background text-foreground;
+    background: linear-gradient(
+      145deg,
+      hsl(220 20% 6%) 0%,
+      hsl(220 15% 4%) 50%,
+      hsl(225 20% 7%) 100%
+    );
+    min-height: 100vh;
   }
+}
+
+@layer components {
+  .glass {
+    background: var(--glass-bg);
+    backdrop-filter: blur(var(--glass-blur));
+    -webkit-backdrop-filter: blur(var(--glass-blur));
+    border: 1px solid var(--glass-border);
+  }
+
+  .glass-strong {
+    background: var(--glass-bg-strong);
+    backdrop-filter: blur(var(--glass-blur-heavy));
+    -webkit-backdrop-filter: blur(var(--glass-blur-heavy));
+    border: 1px solid var(--glass-border-strong);
+  }
+
+  .glass-card {
+    background: rgba(255, 255, 255, 0.04);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border: 1px solid rgba(255, 255, 255, 0.06);
+    border-radius: var(--radius);
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  .glass-card:hover {
+    background: rgba(255, 255, 255, 0.07);
+    border-color: rgba(255, 255, 255, 0.12);
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+  }
+
+  .glass-sidebar {
+    background: rgba(255, 255, 255, 0.03);
+    backdrop-filter: blur(var(--glass-blur-heavy));
+    -webkit-backdrop-filter: blur(var(--glass-blur-heavy));
+    border-right: 1px solid rgba(255, 255, 255, 0.06);
+  }
+
+  .glass-cart {
+    background: rgba(20, 20, 25, 0.85);
+    backdrop-filter: blur(var(--glass-blur-heavy));
+    -webkit-backdrop-filter: blur(var(--glass-blur-heavy));
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: var(--radius);
+  }
+
+  .glass-input {
+    background: rgba(255, 255, 255, 0.05);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 9999px;
+    transition: all 0.2s ease;
+  }
+
+  .glass-input:focus-within {
+    background: rgba(255, 255, 255, 0.08);
+    border-color: rgba(255, 255, 255, 0.15);
+    box-shadow: 0 0 0 2px rgba(255, 255, 255, 0.05);
+  }
+
+  .neural-pay-btn {
+    background: white;
+    color: hsl(220 15% 6%);
+    border-radius: 9999px;
+    font-weight: 600;
+    letter-spacing: 0.02em;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    box-shadow: 0 4px 20px rgba(255, 255, 255, 0.15);
+  }
+
+  .neural-pay-btn:hover {
+    transform: scale(1.02);
+    box-shadow: 0 6px 30px rgba(255, 255, 255, 0.25);
+  }
+
+  .neural-pay-btn:active {
+    transform: scale(0.98);
+  }
+
+  .neural-pay-btn:disabled {
+    opacity: 0.3;
+    cursor: not-allowed;
+    transform: none;
+    box-shadow: none;
+  }
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+  width: 4px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(255, 255, 255, 0.2);
 }
